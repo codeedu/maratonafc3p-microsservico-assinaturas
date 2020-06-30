@@ -64,6 +64,6 @@ func SubscribeProcess(c buffalo.Context) error {
 		c.Set("boletoURL", service.PaymentReturn.CurrentTransaction.BoletoURL)
 		return c.Render(http.StatusOK, r.HTML("subscribe/boleto.html"))
 	}
-z
+
 	return c.Render(http.StatusOK, r.HTML("subscribe/success.html"))
 }
