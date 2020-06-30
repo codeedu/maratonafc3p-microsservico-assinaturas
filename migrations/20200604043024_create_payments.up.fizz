@@ -1,0 +1,22 @@
+create_table("payments") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("transaction_id", "string")
+	t.Column("subscription_id", "uuid")
+	t.Column("gateway", "string")
+	t.Column("payment_type", "string")
+	t.Column("card_brand", "string")
+	t.Column("card_last_digits", "string")
+	t.Column("boleto_url", "string")
+	t.Column("boleto_barcode", "string")
+	t.Column("boleto_expiration_date", "string")
+	t.Column("status", "string")
+	t.Column("total", "integer")
+	t.Column("installments", "integer")
+	t.Timestamps()
+}
+
+add_foreign_key("payments", "subscription_id", {"subscriptions": ["id"]}, {
+    "name": "fk_payments_subscriptions",
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})

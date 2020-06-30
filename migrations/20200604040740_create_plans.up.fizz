@@ -1,0 +1,10 @@
+create_table("plans") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("name", "string")
+	t.Column("description", "text")
+	t.Column("price", "decimal", {"scale": 2, "precision": 6})
+	t.Column("remote_plan_id", "string")
+	t.Column("recurrence", "string")
+	t.Column("active", "bool", {"default": true})
+	t.Timestamps()
+}

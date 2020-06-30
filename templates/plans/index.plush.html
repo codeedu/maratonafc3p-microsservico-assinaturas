@@ -1,0 +1,57 @@
+
+<div class="content-plans" style="background-color: #1c1c1c">
+
+    <nav class="nav-code-shop">
+        <div class="container">
+
+            <img src="<%= assetPath("/img/logo-nav.png") %>" alt="Logomarca CodeShop">
+
+        </div>
+    </nav>
+
+    <section class="plans">
+        <div class="container">
+
+            <div class="row justify-content-xl-center">
+
+                <div class="col-xl-9">
+                    <h1>Planos</h1>
+
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad atque commodi ex fugit harum natus
+                        neque nisi nobis qui sit. Consectetur ducimus ea excepturi mollitia nemo, nisi officiis suscipit
+                        vel.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row justify-content-xl-center">
+
+                <%= for (plan) in plans { %>
+                <article class="col-lg-4 col-xl-3">
+                    <div class="box-plan">
+
+                        <h2><%= plan.Name %></h2>
+
+                        <div class="price">
+                            <p>R$<%= plan.Price %></p>
+                            <span><%= plan.Recurrence %></span>
+                        </div>
+
+                        <div class="info">
+                            <p>
+                                <%= plan.Description %>
+                            </p>
+                        </div>
+
+                        <a href="<%= subscribePath({plan_id: plan.ID}) %>" title="Assinar" class="btn btn-info">Assinar</a>
+
+                    </div>
+                </article>
+                <% } %>
+            </div>
+        </div>
+
+    </section>
+
+</div>

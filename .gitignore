@@ -24,4 +24,4 @@ jhw.*
 dist/
 generated/
 .vendor/
-
+.pgdata/

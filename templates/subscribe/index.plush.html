@@ -1,0 +1,309 @@
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://assets.pagar.me/pagarme-js/4.11/pagarme.min.js"></script>
+
+
+<div class="content-payment" style="background-color: #1c1c1c">
+
+    <nav class="nav-code-shop">
+        <div class="container">
+
+            <img src="<%= assetPath("/img/logo-nav.png") %>" alt="Logomarca CodeShop">
+
+        </div>
+    </nav>
+
+    <section class="payment">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xl-9">
+                    <h1><%= plan.Name %></h1>
+                    <p><%= plan.Description %></p>
+                </div>
+            </div>
+
+            <form action="/subscribe/process?plan_id=<%= plan.ID %>" class="form-payment" method="post"
+                  id="formPayment">
+                <input type="hidden" name="PlanID" value="<%= plan.ID %>">
+                <input name="authenticity_token" type="hidden" value="<%= authenticity_token %>">
+                <input name="CardHash" id="CardHash" type="hidden" value="">
+
+                <div class="row row-form justify-content-xl-between">
+                    <div class="col-lg-6 col-xl-5">
+
+                        <h3>Dados pessoais</h3>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="name" class="sr-only">Nome</label>
+                                    <input type="text" id="name" class="form-control" name="Name" value="Wesley Silva"
+                                           placeholder="Nome completo" required="required">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="email" class="sr-only">Email</label>
+                                        <input type="text" id="email" class="form-control" name="Email"
+                                               value="wesleywillians@gmail.com" placeholder="Email" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="dddCellphone" class="sr-only">DDD</label>
+                                    <input type="text" id="dddCellphone" class="form-control" name="DDD" value="11"
+                                           placeholder="DDD" required="required">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cellphone" class="sr-only">Celular</label>
+                                    <input type="text" id="cellphone" class="form-control" name="PhoneNumber"
+                                           value="99999999" placeholder="celular" required="required">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cpf" class="sr-only">CPF</label>
+                                    <input type="text" id="cpf" class="form-control" name="DocumentNumber"
+                                           value="333.333.333.-33" placeholder="CPF" required="required">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cep" class="sr-only">CEP</label>
+                                    <input type="text" id="cep" class="form-control" name="Zipcode" value="06550-000"
+                                           placeholder="CEP" required="required">
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="street" class="sr-only">Rua</label>
+                                    <input type="text" id="street" class="form-control" name="Street" value="Rua José"
+                                           placeholder="Rua" required="required">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="number" class="sr-only">Número</label>
+                                    <input type="text" id="number" class="form-control" name="StreetNumber" value="65"
+                                           placeholder="Número" required="required">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="complement" class="sr-only">Complemento</label>
+                                    <input type="text" id="complement" class="form-control" name="Complementary"
+                                           value="Casa" placeholder="Complemento">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="neighborhood" class="sr-only">Bairro</label>
+                                    <input type="text" id="neighborhood" class="form-control" name="Neighborhood"
+                                           value="Centro" placeholder="Bairro" required="required">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="city" class="sr-only">Cidade</label>
+                                    <input type="text" id="city" class="form-control" name="City" value="Pirapora"
+                                           placeholder="Cidade" required="required">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="state" class="sr-only">Estado</label>
+                                    <select class="form-control" id="state" name="Installments" required="required">
+                                        <option value="" disabled="disabled">Estado</option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espirito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraiba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP" selected="selected">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantis</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="payment-method">
+
+                            <h3>Formas de pagamento</h3>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="row">
+                                        <div class="col-md-12 col-check">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="PaymentMethod"
+                                                       id="card" value="credit_card" checked="checked">
+                                                <label class="form-check-label" for="card">
+                                                    <img src="<%= assetPath("/img/card.png") %>" alt="Cartão"
+                                                    class="img-fluid">
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline two">
+                                                <input class="form-check-input" type="radio" name="PaymentMethod"
+                                                       id="slip" value="boleto">
+                                                <label class="form-check-label" for="slip">
+                                                    <img src="<%= assetPath("/img/slip.png") %>" alt="Boleto"
+                                                    class="img-fluid">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <fieldset disabled='disabled' id="fieldsetCard" style="">
+
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label for="cardNumber" class="sr-only">Número do cartão</label>
+                                                    <input type="text" id="cardNumber" class="form-control"
+                                                           name="card_number" value="4111111111111111"
+                                                           placeholder="Número do cartão" required="required">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="cvv" class="sr-only">CVV</label>
+                                                    <input type="text" id="cvv" class="form-control" name="cvv"
+                                                           value="123" placeholder="CVV" required="required">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label for="CardName" class="sr-only">Titular do cartão</label>
+                                                    <input type="text" id="CardName" class="form-control"
+                                                           name="card_holder_name" value="Wesley Silva"
+                                                           placeholder="Titular do cartão" required="required">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="cardDate" class="sr-only">MM/AA</label>
+                                                    <input type="text" id="cardDate" class="form-control"
+                                                           name="card_date" value="10/23" placeholder="MM/AA"
+                                                           required="required">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-btn">
+
+                        <input id="btnSubmit" type="submit" class="btn btn-info" value="Finalizar"/>
+
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+
+    $('#formPayment').submit(function (event) {
+        event.preventDefault();
+        if ($("#card").is(":checked")) {
+            var card = {};
+            card.card_holder_name = $("#CardName").val();
+            card.card_expiration_date = $("#cardDate").val();
+            card.card_number = $("#cardNumber").val();
+            card.card_cvv = $("#cvv").val();
+            console.log("aa");
+            var cardValidations = pagarme.validate({card: card});
+
+            if (!cardValidations.card.card_number) {
+                alert("Cartão inválido");
+            } else {
+                pagarme.client.connect({encryption_key: "ek_test_AoRj4Dr2cp8vdtFjXKulKrZiI0nSm9"})
+                    .then(client => client.security.encrypt(card))
+                    .then((card_hash) => {
+                        $('#CardHash').val(card_hash);
+                        $('#formPayment')[0].submit();
+                    });
+            }
+        } else {
+            $('#formPayment')[0].submit();
+        }
+        return false;
+    });
+
+</script>

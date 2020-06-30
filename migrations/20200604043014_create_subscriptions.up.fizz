@@ -1,0 +1,24 @@
+create_table("subscriptions") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("subscriber_id", "uuid")
+	t.Column("remote_subscription_id", "string")
+	t.Column("remote_plan_id", "string")
+	t.Column("plan_id", "uuid")
+	t.Column("start_date", "date")
+	t.Column("expires_at", "date")
+	t.Column("status", "string")
+	t.Timestamps()
+}
+
+add_foreign_key("subscriptions", "plan_id", {"plans": ["id"]}, {
+    "name": "fk_psubscriptions_plans",
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})
+
+
+add_foreign_key("subscriptions", "subscriber_id", {"subscribers": ["id"]}, {
+    "name": "fk_psubscriptions_subscribers",
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})

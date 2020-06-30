@@ -1,0 +1,14 @@
+create_table("subscribers") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("name", "string")
+	t.Column("email", "string")
+	t.Column("document_number", "string")
+	t.Column("street", "string")
+	t.Column("street_number", "string")
+	t.Column("complementary", "string")
+	t.Column("neighborhood", "string")
+	t.Column("zipcode", "string")
+	t.Column("ddd", "string")
+	t.Column("number", "string")
+	t.Timestamps()
+}

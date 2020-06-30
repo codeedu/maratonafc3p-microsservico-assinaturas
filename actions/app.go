@@ -6,6 +6,7 @@ import (
 	forcessl "github.com/gobuffalo/mw-forcessl"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
 	"github.com/unrolled/secure"
+	"subscription_service/services"
 
 	"subscription_service/models"
 
@@ -20,6 +21,7 @@ import (
 var ENV = envy.Get("GO_ENV", "development")
 var app *buffalo.App
 var T *i18n.Translator
+var RabbitMQ = services.NewRabbitMQ()
 
 // App is where all routes and middleware for buffalo
 // should be defined. This is the nerve center of your
@@ -36,6 +38,9 @@ var T *i18n.Translator
 // declared after it to never be called.
 func App() *buffalo.App {
 	if app == nil {
+		RabbitMQ.Connect()
+		RabbitMQ.GetChannel()
+
 		app = buffalo.New(buffalo.Options{
 			Env:         ENV,
 			SessionName: "_subscription_service_session",
@@ -61,6 +66,9 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 
+		app.GET("/plans/", PlansIndex)
+		app.GET("/subscribe/", SubscribeIndex)
+		app.POST("/subscribe/process", SubscribeProcess)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 
