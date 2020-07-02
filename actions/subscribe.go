@@ -5,6 +5,7 @@ import (
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop/v5"
 	"net/http"
+	"os"
 	"subscription_service/models"
 	"subscription_service/services"
 )
@@ -23,6 +24,7 @@ func SubscribeIndex(c buffalo.Context) error {
 		return c.Error(http.StatusNotFound, err)
 	}
 
+	c.Set("GATEWAY_ENCRYPTION_KEY", os.Getenv("GATEWAY_ENCRYPTION_KEY"))
 	c.Set("plan", plan)
 
 	return c.Render(http.StatusOK, r.HTML("subscribe/index.html"))
@@ -46,6 +48,7 @@ func SubscribeProcess(c buffalo.Context) error {
 	service.RabbitMQ = RabbitMQ
 	err := service.Process(*processData)
 
+	c.Set("GATEWAY_ENCRYPTION_KEY", os.Getenv("GATEWAY_ENCRYPTION_KEY"))
 	if err != nil {
 		c.Flash().Add("Declined","Transação negada. Tente novamente.")
 		// Allocate an empty Plan

@@ -293,7 +293,7 @@
             if (!cardValidations.card.card_number) {
                 alert("Cartão inválido");
             } else {
-                pagarme.client.connect({encryption_key: "ek_test_AoRj4Dr2cp8vdtFjXKulKrZiI0nSm9"})
+                pagarme.client.connect({encryption_key: "<%= GATEWAY_ENCRYPTION_KEY %>"})
                     .then(client => client.security.encrypt(card))
                     .then((card_hash) => {
                         $('#CardHash').val(card_hash);
