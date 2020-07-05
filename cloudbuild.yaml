@@ -1,6 +1,7 @@
 steps:
-- id: "Building image from Dockerfile.prod"
-  name: gcr.io/cloud-builders/docker
+
+#step 1
+- name: gcr.io/cloud-builders/docker
   args: [
    'build', 
    '-t', 
@@ -10,21 +11,21 @@ steps:
    '.'
   ]
 
-#step 3
+#step 2
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'k8s/']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
   - 'CLOUDSDK_CONTAINER_CLUSTER=ecommerce'
   
-#step 4
+#step 3
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [
    'set', 
    'image', 
    'deployment', 
    'subscription', 
-   'subscription=gcr.io/$PROJECT_ID/mfc3-subscription:$TAG_NAME'
+   'subscription=gcr.io/$PROJECT_ID/mfc3-subscription:$SHORT_SHA'
   ]
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
@@ -32,6 +33,6 @@ steps:
 
 # push images to Google Container Registry with tags
 images: [
-   'gcr.io/$PROJECT_ID/mfc3-subscription:$TAG_NAME',
+   'gcr.io/$PROJECT_ID/mfc3-subscription:$SHORT_SHA',
    'gcr.io/$PROJECT_ID/mfc3-subscription:latest'
   ]  
