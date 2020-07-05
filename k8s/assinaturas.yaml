@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subscription
+spec:
+  selector:
+    matchLabels:
+      app: subscription
+  template:
+    metadata:
+      labels:
+        app: subscription
+    spec:
+      containers:
+        - name: subscription
+          image: wesleywillians/maratonafc3-subscription
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: subscription-conf
+          volumeMounts:
+          - name: subscription-conf
+            subPath: .env
+            mountPath: /bin/.env
+
+      volumes:
+      - name: subscription-conf
+        configMap:
+          name: subscription-conf
+          items:
+            - key: env
+              path: .env
